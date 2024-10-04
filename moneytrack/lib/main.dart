@@ -1,24 +1,22 @@
-import 'package:moneytrack/presentation/widgets/bottom_navbar.dart';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moneytrack/presentation/screens/login_screen.dart';
+//import 'package:moneytrack/presentation/widgets/bottom_navbar.dart'; 
 import 'package:moneytrack/domain/models/category_model.dart';
 import 'package:moneytrack/domain/models/transaction_model.dart';
-import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
-
-// Future<void> clearData() async {
-//   final appDocumentDirectory =
-//       await path_provider.getApplicationDocumentsDirectory();
-//   Hive.init(appDocumentDirectory.path);
-//   await Hive.deleteFromDisk();
-// }
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await clearData();
+  WidgetsFlutterBinding.ensureInitialized(); 
   await Hive.initFlutter();
+  
+  
   Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(CategoryModelAdapter());
+
+  
   await Hive.openBox<Transaction>('transactions');
   await Hive.openBox<CategoryModel>('categories');
+  await Hive.openBox('user'); 
 
   runApp(const MyApp());
 }
@@ -26,12 +24,11 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Bottom(),
+      home: LoginPage(), 
     );
   }
 }
