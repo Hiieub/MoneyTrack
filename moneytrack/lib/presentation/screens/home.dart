@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:moneytrack/Constants/days.dart';
 import 'package:moneytrack/data/utilty.dart';
 import 'package:moneytrack/domain/models/transaction_model.dart';
@@ -26,30 +27,30 @@ class _HomeState extends State<Home> {
               return CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
-                    child: SizedBox(height: 340, child: _head(context)), // Truyền context vào _head
+                    child: SizedBox(height: 340, child: _head(context)),
                   ),
-                  const SliverToBoxAdapter(
+                  SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Transactions History',
+                            "Transactions History".tr(),
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 19,
                               color: Colors.black,
                             ),
                           ),
-                          Text(
-                            'See all',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: Colors.grey,
-                            ),
-                          ),
+                          // Text(
+                          //   'See all',
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.w600,
+                          //     fontSize: 15,
+                          //     color: Colors.grey,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -74,17 +75,17 @@ class _HomeState extends State<Home> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: const Text("Confirm"),
-                content: const Text(
-                    "Are you sure you want to delete this transaction?"),
+                title: Text("Confirm".tr()),
+                content: Text(
+                    "Are you sure you want to delete this transaction?".tr()),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(false),
-                    child: const Text("Cancel"),
+                    child: Text("Cancel".tr()),
                   ),
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    child: const Text("Delete"),
+                    child: Text("Delete".tr()),
                   ),
                 ],
               );
@@ -130,7 +131,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Stack _head(BuildContext context) {  // Nhận context từ tham số
+  Stack _head(BuildContext context) {  
     return Stack(
       children: [
         Column(
@@ -163,10 +164,10 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                         ),
                       )),
-                  const Padding(
+                  Padding(
                       padding: EdgeInsets.only(top: 40, left: 30),
                       child: Text(
-                        "Dashboard",
+                        "Dashboard".tr(),
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 22,
@@ -199,13 +200,13 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: [
                   const SizedBox(height: 10),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Total Balance',
+                          "Total Balance".tr(),
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -236,7 +237,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -254,7 +255,7 @@ class _HomeState extends State<Home> {
                             ),
                             SizedBox(width: 7),
                             Text(
-                              'Income',
+                              "Income".tr(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16,
@@ -276,7 +277,7 @@ class _HomeState extends State<Home> {
                             ),
                             SizedBox(width: 7),
                             Text(
-                              'Expenses',
+                              "Expenses".tr(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16,

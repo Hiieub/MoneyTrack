@@ -1,3 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:moneytrack/main.dart';
+
 import '../screens/forgot_screen.dart';
 import '../screens/signup_screen.dart';
 import '../widgets/bottom_navbar.dart';
@@ -17,32 +20,32 @@ class _LoginState extends State<LoginPage> {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
-    // Kiểm tra thông tin đăng nhập
+    
     if (email.isNotEmpty && password.isNotEmpty) {
       final box = Hive.box('user');
 
-      // Lấy thông tin đã lưu
+      
       String storedEmail = box.get('email', defaultValue: '');
       String storedPassword = box.get('password', defaultValue: '');
 
       if (email == storedEmail && password == storedPassword) {
-        // Lưu trạng thái đăng nhập vào Hive
+        
         box.put('isLoggedIn', true);
         
-        // Chuyển hướng đến màn hình chính
+        
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Bottom()), // Thay 'Bottom' bằng tên widget chính của bạn
+          MaterialPageRoute(builder: (context) => const Bottom()), 
         );
       } else {
-        // Hiển thị thông báo lỗi
+        
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Invalid email or password')),
+          SnackBar(content: Text("Invalid_email_or_password".tr())),
         );
       }
     } else {
-      // Hiển thị thông báo khi không nhập đủ thông tin
+      
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter both email and password')),
+        SnackBar(content: Text("Please_enter_both_email_and_password".tr())),
       );
     }
   }
@@ -77,7 +80,7 @@ class _LoginState extends State<LoginPage> {
               child: ListView(
                 children: [
                   Text(
-                    'Login'.toUpperCase(),
+                    "Login".tr().toUpperCase(),
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -131,7 +134,7 @@ class _LoginState extends State<LoginPage> {
                       keyboardType: TextInputType.text,
                       obscureText: true,
                       decoration: InputDecoration(
-                        hintText: "Password * ",
+                        hintText: "Password * ".tr(),
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.bold, letterSpacing: 1.8),
                         border: OutlineInputBorder(
@@ -159,7 +162,7 @@ class _LoginState extends State<LoginPage> {
                   SizedBox(height: height * 0.08),
                   Center(
                     child: GestureDetector(
-                      onTap: loginUser, // Gọi hàm loginUser
+                      onTap: loginUser,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 26, vertical: 10),
                         decoration: BoxDecoration(
@@ -176,7 +179,7 @@ class _LoginState extends State<LoginPage> {
                           ],
                         ),
                         child: Text(
-                          "Login".toUpperCase(),
+                          "Login".tr().toUpperCase(),
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -199,7 +202,7 @@ class _LoginState extends State<LoginPage> {
                       );
                     },
                     child: Text(
-                      "Forgot Password ?".toUpperCase(),
+                      "Forgot Password".tr().toUpperCase(),
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.blue,
@@ -218,7 +221,7 @@ class _LoginState extends State<LoginPage> {
                   ),
                   SizedBox(height: height * 0.04),
                   Text(
-                    "Don't Have Account ?".toUpperCase(),
+                    "Don't Have Account".tr().toUpperCase(),
                     style: TextStyle(
                       fontSize: 16,
                       letterSpacing: 1.7,
@@ -250,7 +253,7 @@ class _LoginState extends State<LoginPage> {
                           ],
                         ),
                         child: Text(
-                          "Signup".toUpperCase(),
+                          "Signup".tr().toUpperCase(),
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,

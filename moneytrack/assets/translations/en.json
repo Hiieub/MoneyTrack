@@ -1,0 +1,36 @@
+{
+    "Invalid_email_or_password": "Invalid email or password",
+    "Please_enter_both_email_and_password": "Please enter both email and password",
+    "Login": "Login",
+    "Password * ": "Password *",
+    "Forgot Password": "Forgot Password ?",
+    "Don't Have Account": "Don't Have Account ?",
+    "Signup": "Signup",
+
+    "Name * ": "Name * ",
+    "Signup successful!": "Signup successful!",
+    "Please fill in all fields": "Please fill in all fields",
+
+    "reset password": "reset password",
+    "Your Email * ": "Your Email * ",
+    "Reset": "Reset",
+    "Confirm": "Confirm",
+    "Transactions History": "Transactions History",
+    "Are you sure you want to delete this transaction?": "Are you sure you want to delete this transaction?",
+    "Cancel": "Cancel",
+    "Delete": "Delete",
+    "Dashboard": "Dashboard",
+    "Total Balance": "Total Balance",
+    "Income": "Income",
+    "Expenses": "Expenses",
+
+    "Day": "Day",
+    "Week": "Week",
+    "Month": "Month",
+    "Year": "Year",
+    "Statistics": "Statistics",
+    "Column": "Column",
+    "Circular": "Circular",
+    "Total:": "Total:",
+    "Top Spending": "Top Spending"
+}

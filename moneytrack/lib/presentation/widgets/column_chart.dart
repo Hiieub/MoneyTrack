@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:moneytrack/domain/models/transaction_model.dart';
 import 'package:flutter/material.dart';
+import 'package:moneytrack/main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
@@ -116,7 +118,7 @@ class _ColumnChartState extends State<ColumnChart> {
         tooltipBehavior: _tooltipBehavior,
         series: <ColumnSeries<ChartData, String>>[
           ColumnSeries<ChartData, String>(
-            name: 'Income',
+            name: "Income".tr(),
             dataSource: chartData,
             color: Colors.green,
             xValueMapper: (ChartData data, _) => data.x,
@@ -128,7 +130,7 @@ class _ColumnChartState extends State<ColumnChart> {
             enableTooltip: true,
           ),
           ColumnSeries<ChartData, String>(
-            name: 'Expense',
+            name: "Expenses".tr(),
             color: Colors.red,
             dataSource: chartData,
             xValueMapper: (ChartData data, _) => data.x,

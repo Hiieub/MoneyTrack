@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:moneytrack/Constants/color.dart';
+import 'package:moneytrack/main.dart';
 import 'package:moneytrack/presentation/widgets/circular_chart.dart';
 import 'package:moneytrack/presentation/widgets/column_chart.dart';
 // import 'package:moneytrack/presentation/widgets/spline_chart.dart';
@@ -22,7 +24,7 @@ class _StatisticsState extends State<Statistics>
     with SingleTickerProviderStateMixin {
   final box = Hive.box<Transaction>('transactions');
 
-  List day = ['Day', 'Week', 'Month', 'Year'];
+  List day = ["Day".tr(), "Week".tr(), "Month".tr(), "Year".tr()];
   List listTransaction = [[], [], [], []];
   List<Transaction> currListTransaction = [];
   int indexColor = 0;
@@ -99,8 +101,8 @@ class _StatisticsState extends State<Statistics>
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              'Statistics',
+            Text(
+              "Statistics".tr(),
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
@@ -230,9 +232,9 @@ class _StatisticsState extends State<Statistics>
                 indicatorColor: primaryColor,
                 labelColor: primaryColor,
                 unselectedLabelColor: Colors.black,
-                tabs: const [
-                  Tab(text: 'Column'),
-                  Tab(text: 'Circular'),
+                tabs: [
+                  Tab(text: "Column".tr()),
+                  Tab(text: "Circular".tr()),
                 ],
                 onTap: (index) {
                   setState(() {
@@ -248,11 +250,11 @@ class _StatisticsState extends State<Statistics>
                 ? Column(
                     children: [
                       CircularChart(
-                          title: "Income",
+                          title: "Income".tr(),
                           currIndex: indexColor,
                           transactions: currListTransaction),
                       CircularChart(
-                          title: "Expense",
+                          title: "Expense".tr(),
                           currIndex: indexColor,
                           transactions: currListTransaction),
                     ],
@@ -273,7 +275,7 @@ class _StatisticsState extends State<Statistics>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           CircleAvatar(
                             radius: 13,
@@ -286,7 +288,7 @@ class _StatisticsState extends State<Statistics>
                           ),
                           SizedBox(width: 7),
                           Text(
-                            'Income',
+                            "Income".tr(),
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 15,
@@ -311,7 +313,7 @@ class _StatisticsState extends State<Statistics>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           CircleAvatar(
                             radius: 13,
@@ -324,7 +326,7 @@ class _StatisticsState extends State<Statistics>
                           ),
                           SizedBox(width: 7),
                           Text(
-                            'Expenses',
+                            "Expenses".tr(),
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 15,
@@ -357,11 +359,11 @@ class _StatisticsState extends State<Statistics>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           SizedBox(width: 30),
                           Text(
-                            'Total:',
+                            "Total:".tr(),
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 15,
@@ -386,13 +388,13 @@ class _StatisticsState extends State<Statistics>
             const SizedBox(
               height: 20,
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Top Spending',
+                    "Top Spending".tr(),
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,

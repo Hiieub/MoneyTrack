@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:moneytrack/main.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -37,7 +39,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 children: [
                   SizedBox(height: height * 0.08),
                   Text(
-                    'reset password'.toUpperCase(),
+                    "reset password".tr().toUpperCase(),
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -56,7 +58,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        hintText: "Your Email * ",
+                        hintText: "Your Email * ".tr(),
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.8,
@@ -101,7 +103,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ],
                       ),
                       child: Text(
-                        "Reset".toUpperCase(),
+                        "Reset".tr().toUpperCase(),
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,

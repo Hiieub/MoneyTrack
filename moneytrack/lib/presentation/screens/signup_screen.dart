@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:moneytrack/main.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -41,7 +43,7 @@ class _SignupState extends State<Signup> {
               child: ListView(
                 children: [
                   Text(
-                    'Signup'.toUpperCase(),
+                    "Signup".tr().toUpperCase(),
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -60,7 +62,7 @@ class _SignupState extends State<Signup> {
                       controller: _nameController,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        hintText: "Name * ",
+                        hintText: "Name * ".tr(),
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.8,
@@ -130,7 +132,7 @@ class _SignupState extends State<Signup> {
                       textAlign: TextAlign.center,
                       obscureText: true,
                       decoration: InputDecoration(
-                        hintText: "Password * ",
+                        hintText: "Password * ".tr(),
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.8,
@@ -161,7 +163,7 @@ class _SignupState extends State<Signup> {
                   Center(
                     child: GestureDetector(
                       onTap: () {
-                        // Xử lý đăng ký 
+                         
                         signupUser();
                       },
                       child: Container(
@@ -180,7 +182,7 @@ class _SignupState extends State<Signup> {
                           ],
                         ),
                         child: Text(
-                          "Signup".toUpperCase(),
+                          "Signup".tr().toUpperCase(),
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -215,14 +217,14 @@ class _SignupState extends State<Signup> {
 
       // Thông báo thành công
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Signup successful!')),
+        SnackBar(content: Text("Signup successful!".tr())),
       );
 
       // Chuyển hướng đến màn hình đăng nhập hoặc màn hình chính
       Navigator.pop(context); // Quay về màn hình đăng nhập
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please fill in all fields')),
+        SnackBar(content: Text("Please fill in all fields".tr())),
       );
     }
   }
