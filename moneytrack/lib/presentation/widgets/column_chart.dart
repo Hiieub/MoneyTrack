@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:moneytrack/domain/models/transaction_model.dart';
 import 'package:flutter/material.dart';
-import 'package:moneytrack/main.dart';
+//import 'package:moneytrack/main.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
@@ -102,8 +102,7 @@ class _ColumnChartState extends State<ColumnChart> {
       height: 380,
       child: SfCartesianChart(
         primaryXAxis: CategoryAxis(
-            // labelRotation: -45,
-            // labelIntersectAction: AxisLabelIntersectAction.rotate45,
+           
             ),
         primaryYAxis: NumericAxis(
           numberFormat: NumberFormat.compact(),

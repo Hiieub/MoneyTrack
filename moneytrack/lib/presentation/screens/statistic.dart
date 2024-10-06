@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:moneytrack/Constants/color.dart';
-import 'package:moneytrack/main.dart';
+//import 'package:moneytrack/main.dart';
 import 'package:moneytrack/presentation/widgets/circular_chart.dart';
 import 'package:moneytrack/presentation/widgets/column_chart.dart';
 // import 'package:moneytrack/presentation/widgets/spline_chart.dart';

@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:moneytrack/main.dart';
+//import 'package:moneytrack/main.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override

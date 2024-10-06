@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:moneytrack/Constants/color.dart';
+//import 'package:moneytrack/Constants/days.dart';
 import 'package:moneytrack/domain/models/transaction_model.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -92,7 +94,7 @@ class _SplineChartState extends State<SplineChart> {
         ),
         primaryYAxis: NumericAxis(
           numberFormat: NumberFormat.compact(),
-          maximum: 20000000,
+          maximum: 2000000000,
         ),
         legend: Legend(
           isVisible: true,
@@ -103,7 +105,7 @@ class _SplineChartState extends State<SplineChart> {
         tooltipBehavior: _tooltipBehavior,
         series: <CartesianSeries>[
           SplineSeries<ChartData, String>(
-            name: 'Income',
+            name: "Income".tr(),
             color: Colors.green,
             splineType: SplineType.cardinal,
             width: 5,
@@ -117,7 +119,7 @@ class _SplineChartState extends State<SplineChart> {
             enableTooltip: true,
           ),
           SplineSeries<ChartData, String>(
-            name: 'Expense',
+            name: "Expenses".tr(),
             width: 5,
             color: Colors.red,
             splineType: SplineType.cardinal,

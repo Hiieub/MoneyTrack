@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:moneytrack/main.dart';
+//import 'package:moneytrack/main.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -209,19 +209,19 @@ class _SignupState extends State<Signup> {
     String password = _passwordController.text.trim();
 
     if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
-      // Lưu thông tin người dùng vào Hive
+      
       final userBox = Hive.box('user'); 
       userBox.put('name', name);
       userBox.put('email', email);
-      userBox.put('password', password); // Lưu mật khẩu 
+      userBox.put('password', password);  
 
-      // Thông báo thành công
+      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Signup successful!".tr())),
       );
 
-      // Chuyển hướng đến màn hình đăng nhập hoặc màn hình chính
-      Navigator.pop(context); // Quay về màn hình đăng nhập
+      
+      Navigator.pop(context); 
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Please fill in all fields".tr())),

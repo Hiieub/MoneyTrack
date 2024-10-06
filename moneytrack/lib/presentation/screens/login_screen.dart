@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:moneytrack/main.dart';
+//import 'package:moneytrack/main.dart';
 
 import '../screens/forgot_screen.dart';
 import '../screens/signup_screen.dart';

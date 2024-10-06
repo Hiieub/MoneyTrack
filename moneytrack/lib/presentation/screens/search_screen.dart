@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:moneytrack/Constants/color.dart';
 import 'package:moneytrack/data/utilty.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:moneytrack/domain/models/transaction_model.dart';
+//import 'package:moneytrack/main.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -44,7 +46,7 @@ class SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: const Text('Tìm kiếm'),
+        title: Text("Search".tr()),
       ),
       body: Column(
         children: [
@@ -56,7 +58,7 @@ class SearchScreenState extends State<SearchScreen> {
                   cursorColor: primaryColor,
                   controller: searchController,
                   decoration: InputDecoration(
-                    labelText: 'Tìm theo ghi chú',
+                    labelText: "Search by notes".tr(),
                     labelStyle: const TextStyle(color: primaryColor),
                     focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: primaryColor)),
@@ -84,7 +86,7 @@ class SearchScreenState extends State<SearchScreen> {
                       child: TextField(
                         controller: dayController,
                         decoration: InputDecoration(
-                          labelText: 'Ngày',
+                          labelText: "Day".tr(),
                           labelStyle: const TextStyle(color: primaryColor),
                         ),
                         keyboardType: TextInputType.number,
@@ -99,7 +101,7 @@ class SearchScreenState extends State<SearchScreen> {
                       child: TextField(
                         controller: monthController,
                         decoration: InputDecoration(
-                          labelText: 'Tháng',
+                          labelText: "Month".tr(),
                           labelStyle: const TextStyle(color: primaryColor),
                         ),
                         keyboardType: TextInputType.number,
@@ -114,7 +116,7 @@ class SearchScreenState extends State<SearchScreen> {
                       child: TextField(
                         controller: yearController,
                         decoration: InputDecoration(
-                          labelText: 'Năm',
+                          labelText: "Year".tr(),
                           labelStyle: const TextStyle(color: primaryColor),
                         ),
                         keyboardType: TextInputType.number,

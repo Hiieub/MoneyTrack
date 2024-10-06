@@ -1,4 +1,6 @@
 // import 'package:fl_chart_app/presentation/resources/app_resources.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:moneytrack/Constants/days.dart';
 import 'package:moneytrack/data/utilty.dart';
 import 'package:moneytrack/domain/models/transaction_model.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -57,7 +59,7 @@ class PieChart2State extends State {
   @override
   Widget build(BuildContext context) {
     return categoryAmountMap.isEmpty
-        ? const Text('No expenses')
+        ? Text("No expenses".tr())
         : AspectRatio(
             aspectRatio: 1.3,
             child: Row(
@@ -95,13 +97,13 @@ class PieChart2State extends State {
                     ),
                   ),
                 ),
-                const Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Indicator(
                       color: AppColors.contentColorBlue,
-                      text: 'Food',
+                      text: "Food".tr(),
                       isSquare: true,
                     ),
                     SizedBox(
@@ -109,7 +111,7 @@ class PieChart2State extends State {
                     ),
                     Indicator(
                       color: AppColors.contentColorYellow,
-                      text: 'Transfer',
+                      text: "Transfer".tr(),
                       isSquare: true,
                     ),
                     SizedBox(
@@ -117,7 +119,7 @@ class PieChart2State extends State {
                     ),
                     Indicator(
                       color: AppColors.contentColorPurple,
-                      text: 'Transportation',
+                      text: "Transportation".tr(),
                       isSquare: true,
                     ),
                     SizedBox(
@@ -125,7 +127,7 @@ class PieChart2State extends State {
                     ),
                     Indicator(
                       color: AppColors.contentColorGreen,
-                      text: 'Education',
+                      text: "Education".tr(),
                       isSquare: true,
                     ),
                     SizedBox(
@@ -247,7 +249,7 @@ class PieChart2State extends State {
       sections.add(
         PieChartSectionData(
           color: getCategoryColor(
-              category), // Define a method to get the color based on the category
+              category), 
           value: amount.toDouble(),
           title: '$percentage%',
           radius: radius,

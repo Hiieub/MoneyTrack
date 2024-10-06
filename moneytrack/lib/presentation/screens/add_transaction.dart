@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:moneytrack/Constants/color.dart';
 import 'package:moneytrack/Constants/default_categories.dart';
 import 'package:moneytrack/Constants/limits.dart';
@@ -17,8 +18,8 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  List<CategoryModel> incomeCategories = defaultIncomeCategories;
-  List<CategoryModel> expenseCategories = defaultExpenseCategories;
+  List<CategoryModel> incomeCategories = createDefaultIncomeCategories();
+  List<CategoryModel> expenseCategories = createDefaultExpenseCategories();
 
   final boxTransaction = Hive.box<Transaction>('transactions');
   DateTime date = DateTime.now();
@@ -59,13 +60,13 @@ class _AddScreenState extends State<AddScreen> {
     categories = box.values.toList();
     setState(() {
       incomeCategories = [
-        ...defaultIncomeCategories,
-        ...box.values.where((category) => category.type == 'Income').toList(),
-      ];
+    ...box.values.where((category) => category.type == 'Income'),
+    ...createDefaultIncomeCategories()
+  ];
       expenseCategories = [
-        ...defaultExpenseCategories,
-        ...box.values.where((category) => category.type == 'Expense').toList(),
-      ];
+    ...box.values.where((category) => category.type == 'Expense'),
+    ...createDefaultExpenseCategories()
+  ];
     });
   }
 
@@ -138,8 +139,8 @@ class _AddScreenState extends State<AddScreen> {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text('Please fill in all the fields.'),
+              title: Text("Error".tr()),
+              content: Text("Please fill in all fields.".tr()),
               actions: [
                 TextButton(
                   child: const Text('OK'),
@@ -160,9 +161,12 @@ class _AddScreenState extends State<AddScreen> {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('Warning'),
+              title: Text("Warning".tr()),
               content: Text(
-                  'The amount exceeds the spending limit(${formatCurrency(limitPerExpense)}).'),
+                  "exceed_limit".tr(namedArgs: {
+                  'limit': formatCurrency(limitPerExpense),
+                })
+                ),
               actions: [
                 TextButton(
                   child: const Text('OK'),
@@ -174,7 +178,7 @@ class _AddScreenState extends State<AddScreen> {
             ),
           );
           isWarningShown =
-              true; // Set the flag to true after showing the warning
+              true;
           return;
         }
         var newTransaction = Transaction(selectedTypeItem!, amountC.text, date,
@@ -186,9 +190,12 @@ class _AddScreenState extends State<AddScreen> {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('Warning'),
+              title: Text("Warning".tr()),
               content: Text(
-                  'Total balance is less than ${formatCurrency(limitTotal)}!'),
+                  "total_balance_less_than".tr(namedArgs: {
+                  'total': formatCurrency(limitTotal),
+                })
+                ),
               actions: [
                 TextButton(
                   child: const Text('OK'),
@@ -209,8 +216,8 @@ class _AddScreenState extends State<AddScreen> {
             color: const Color(0xff368983)),
         height: 50,
         width: 140,
-        child: const Text(
-          'Add',
+        child: Text(
+          "Add".tr(),
           style: TextStyle(
               fontFamily: 'f',
               fontSize: 17,
@@ -244,7 +251,11 @@ class _AddScreenState extends State<AddScreen> {
             });
           },
           child: Text(
-            'Date : ${date.day}/${date.month}/${date.year}',
+            "date_format".tr(namedArgs: {
+            'day': date.day.toString(),
+            'month': date.month.toString(),
+            'year': date.year.toString(),
+          }),
             style: const TextStyle(fontSize: 15, color: Colors.black),
           ),
         ),
@@ -264,7 +275,7 @@ class _AddScreenState extends State<AddScreen> {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          labelText: 'Amount',
+          labelText: "Amount".tr(),
           labelStyle: TextStyle(fontSize: 17, color: Colors.grey.shade800),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -272,13 +283,13 @@ class _AddScreenState extends State<AddScreen> {
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(width: 2, color: primaryColor)),
-          errorText: isAmountValid ? null : 'Amount must be greater than 0',
+          errorText: isAmountValid ? null : "Amount must be greater than 0".tr(),
         ),
         onChanged: (value) {
           setState(() {
             if (value.isEmpty) {
               isAmountValid =
-                  true; // Reset the validation if the field is empty
+                  true; 
             } else {
               isAmountValid =
                   double.tryParse(value) != null && double.parse(value) > 0;
@@ -290,67 +301,62 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   Padding typeField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 2,
-                color: const Color(0xff368983),
-              )),
-          child: DropdownButton<String>(
-            value: selectedTypeItem,
-            items: types
-                .map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Row(children: [
-                        SizedBox(
-                          width: 40,
-                          child: Image.asset('images/$e.png'),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          e,
-                          style: const TextStyle(fontSize: 15),
-                        )
-                      ]),
-                    ))
-                .toList(),
-            selectedItemBuilder: (BuildContext context) => types
-                .map((e) => Row(
-                      children: [
-                        SizedBox(
-                          width: 42,
-                          child: Image.asset('images/$e.png'),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(e)
-                      ],
-                    ))
-                .toList(),
-            hint: const Text(
-              'Select Type',
-              style: TextStyle(color: Colors.grey),
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 15),
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          width: 2,
+          color: const Color(0xff368983),
+        ),
+      ),
+      child: DropdownButton<String>(
+        value: selectedTypeItem,
+        items: types.map((e) => DropdownMenuItem(
+          value: e,
+          child: Row(children: [
+            SizedBox(
+              width: 40,
+              child: Image.asset('images/$e.png'),
             ),
-            dropdownColor: Colors.white,
-            isExpanded: true,
-            underline: Container(),
-            onChanged: ((value) {
-              setState(() {
-                selectedTypeItem = value!;
-                selectedCategoryItem = null;
-              });
-            }),
-          )),
-    );
-  }
+            const SizedBox(width: 10),
+            Text(
+              e.tr(), 
+              style: const TextStyle(fontSize: 15),
+            ),
+          ]),
+        )).toList(),
+        selectedItemBuilder: (BuildContext context) => types.map((e) => Row(
+          children: [
+            SizedBox(
+              width: 42,
+              child: Image.asset('images/$e.png'),
+            ),
+            const SizedBox(width: 5),
+            Text(e.tr()), 
+          ],
+        )).toList(),
+        hint: Text(
+          "Select Type".tr(),
+          style: TextStyle(color: Colors.grey),
+        ),
+        dropdownColor: Colors.white,
+        isExpanded: true,
+        underline: Container(),
+        onChanged: (value) {
+          setState(() {
+            selectedTypeItem = value!;
+            selectedCategoryItem = null;
+          });
+        },
+      ),
+    ),
+  );
+}
+
 
   Padding noteField() {
     return Padding(
@@ -361,7 +367,7 @@ class _AddScreenState extends State<AddScreen> {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          labelText: 'Notes',
+          labelText: "Notes".tr(),
           labelStyle: TextStyle(fontSize: 17, color: Colors.grey.shade800),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -428,8 +434,8 @@ class _AddScreenState extends State<AddScreen> {
                 ),
               )
               .toList(),
-          hint: const Text(
-            'Select category',
+          hint: Text(
+            "Select category".tr(),
             style: TextStyle(color: Colors.grey),
           ),
           dropdownColor: Colors.white,
@@ -475,8 +481,8 @@ class _AddScreenState extends State<AddScreen> {
                       color: Colors.white,
                     ),
                   ),
-                  const Text(
-                    "Add Transaction",
+                  Text(
+                    "Add Transaction".tr(),
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

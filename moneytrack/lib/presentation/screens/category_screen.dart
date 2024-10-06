@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:moneytrack/Constants/color.dart';
 import 'package:moneytrack/Constants/default_categories.dart';
 import 'package:moneytrack/data/utilty.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:moneytrack/domain/models/category_model.dart';
 import 'package:moneytrack/domain/models/transaction_model.dart';
+//import 'package:moneytrack/main.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -32,15 +34,16 @@ class CategoryScreenState extends State<CategoryScreen> {
   }
 
   Future<void> fetchCategories() async {
-    expenseCategories = [
-      ...box.values.where((category) => category.type == 'Expense'),
-      ...defaultExpenseCategories
-    ];
+  // Cập nhật danh sách danh mục
+  expenseCategories = [
+    ...box.values.where((category) => category.type == 'Expense'),
+    ...createDefaultExpenseCategories()
+  ];
 
-    incomeCategories = [
-      ...box.values.where((category) => category.type == 'Income'),
-      ...defaultIncomeCategories
-    ];
+  incomeCategories = [
+    ...box.values.where((category) => category.type == 'Income'),
+    ...createDefaultIncomeCategories()
+  ];
 
     // categories = [
     //   CategoryModel( 'Expense', , 'Header'),
@@ -56,15 +59,15 @@ class CategoryScreenState extends State<CategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: const Text('Categories'),
+        title: Text("Categories".tr()),
       ),
       body: CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
               child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              'Income',
+              "Income".tr(),
               style: TextStyle(fontSize: 17, color: Colors.green),
             ),
           )),
@@ -90,10 +93,10 @@ class CategoryScreenState extends State<CategoryScreen> {
               childCount: incomeCategories.length,
             ),
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
               child: Padding(
             padding: EdgeInsets.all(10.0),
-            child: Text('Expense',
+            child: Text("Expenses".tr(),
                 style: TextStyle(fontSize: 17, color: Colors.red)),
           )),
           SliverList(
