@@ -88,6 +88,13 @@
     "Bills": "Bills",
     "Travels": "Travels",
     "Pets": "Pets",
-    "Tax": "Tax"
+    "Tax": "Tax",
 
+    "No_user_found_for_that_email": "No_user_found_for_that_email",
+    "Wrong_password_provided": "Wrong_password_provided",
+    "Something_went_wrong": "Something_went_wrong",
+    "Password reset email sent. Check your inbox.": "Password reset email sent. Check your inbox.",
+    "No user found with that email.":"No user found with that email.",
+    "Failed to send password reset email. Please try again.":"Failed to send password reset email. Please try again.",
+    "Please enter your email.":"Please enter your email."
 }

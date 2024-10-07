@@ -88,5 +88,13 @@
     "Bills": "Háo đơn",
     "Travels": "Du lịch",
     "Pets": "Thú cưng",
-    "Tax": "Thuế"
+    "Tax": "Thuế",
+
+    "No_user_found_for_that_email": "Không tìm thấy người dùng với email đó",
+    "Wrong_password_provided": "Mật khẩu không đúng",
+    "Something_went_wrong": "Đã xảy ra lỗi",
+    "Password reset email sent. Check your inbox.": "Email khôi phục mật khẩu đã được gửi. Kiểm tra hộp thư đến của bạn.",
+    "No user found with that email.": "Không tìm thấy người dùng với email đó.",
+    "Failed to send password reset email. Please try again.": "Gửi email khôi phục mật khẩu không thành công. Vui lòng thử lại.",
+    "Please enter your email.": "Vui lòng nhập email của bạn."
 }
