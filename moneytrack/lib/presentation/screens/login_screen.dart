@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-//import 'package:moneytrack/main.dart';
+// import 'package:moneytrack/main.dart';
 
 import '../screens/forgot_screen.dart';
 import '../screens/signup_screen.dart';
 import '../widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,34 +17,38 @@ class _LoginState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void loginUser() {
+  void loginUser() async {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
-    
     if (email.isNotEmpty && password.isNotEmpty) {
-      final box = Hive.box('user');
-
-      
-      String storedEmail = box.get('email', defaultValue: '');
-      String storedPassword = box.get('password', defaultValue: '');
-
-      if (email == storedEmail && password == storedPassword) {
-        
-        box.put('isLoggedIn', true);
-        
-        
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Bottom()), 
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
         );
-      } else {
-        
+
+        final box = Hive.box('user');
+        box.put('isLoggedIn', true);
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Bottom()),
+        );
+      } on FirebaseAuthException catch (e) {
+        String message;
+        if (e.code == 'user-not-found') {
+          message = "No_user_found_for_that_email".tr();
+        } else if (e.code == 'wrong-password') {
+          message = "Wrong_password_provided".tr();
+        } else {
+          message = "Something_went_wrong".tr();
+        }
+
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Invalid_email_or_password".tr())),
+          SnackBar(content: Text(message)),
         );
       }
     } else {
-      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Please_enter_both_email_and_password".tr())),
       );

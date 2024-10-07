@@ -5,6 +5,8 @@ import 'package:moneytrack/presentation/screens/login_screen.dart';
 //import 'package:moneytrack/presentation/widgets/bottom_navbar.dart'; 
 import 'package:moneytrack/domain/models/category_model.dart';
 import 'package:moneytrack/domain/models/transaction_model.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); 
@@ -20,6 +22,10 @@ void main() async {
   await Hive.openBox<Transaction>('transactions');
   await Hive.openBox<CategoryModel>('categories');
   await Hive.openBox('user'); 
+
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(
     EasyLocalization(

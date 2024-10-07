@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-//import 'package:moneytrack/main.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Thêm Firebase Auth
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -8,6 +8,40 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  final TextEditingController _emailController = TextEditingController();
+
+  void resetPassword() async {
+    String email = _emailController.text.trim();
+
+    if (email.isNotEmpty) {
+      try {
+        
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Password reset email sent. Check your inbox.".tr())),
+        );
+
+        Navigator.pop(context);
+      } on FirebaseAuthException catch (e) {
+        String message;
+        if (e.code == 'user-not-found') {
+          message = "No user found with that email.".tr();
+        } else {
+          message = "Failed to send password reset email. Please try again.".tr();
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message)),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please enter your email.".tr())),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -55,6 +89,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: width * 0.05),
                     child: TextField(
+                      controller: _emailController,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
@@ -87,30 +122,33 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                   SizedBox(height: height * 0.08),
                   Center(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 26, vertical: 10),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.blue, Colors.blue[200] ?? Colors.blueAccent],
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 4,
-                            color: Colors.blue[200] ?? Colors.blueAccent,
-                            offset: Offset(2, 2),
+                    child: GestureDetector(
+                      onTap: resetPassword, 
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 26, vertical: 10),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.blue, Colors.blue[200] ?? Colors.blueAccent],
                           ),
-                        ],
-                      ),
-                      child: Text(
-                        "Reset".tr().toUpperCase(),
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.7,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 4,
+                              color: Colors.blue[200] ?? Colors.blueAccent,
+                              offset: Offset(2, 2),
+                            ),
+                          ],
                         ),
-                        textAlign: TextAlign.center,
+                        child: Text(
+                          "Reset".tr().toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.7,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ),

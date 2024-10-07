@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-//import 'package:moneytrack/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -12,6 +12,49 @@ class _SignupState extends State<Signup> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  void signupUser() async {
+    String name = _nameController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+
+    if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        final userBox = Hive.box('user');
+        userBox.put('name', name);
+        userBox.put('email', email);
+        userBox.put('password', password);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Signup successful!".tr())),
+        );
+
+        Navigator.pop(context);
+      } on FirebaseAuthException catch (e) {
+        String message;
+        if (e.code == 'weak-password') {
+          message = "The password provided is too weak.".tr();
+        } else if (e.code == 'email-already-in-use') {
+          message = "The account already exists for that email.".tr();
+        } else {
+          message = "Signup failed. Please try again.".tr();
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message)),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please fill in all fields".tr())),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,10 +205,7 @@ class _SignupState extends State<Signup> {
                   SizedBox(height: height * 0.07),
                   Center(
                     child: GestureDetector(
-                      onTap: () {
-                         
-                        signupUser();
-                      },
+                      onTap: signupUser,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 26, vertical: 10),
                         decoration: BoxDecoration(
@@ -201,31 +241,5 @@ class _SignupState extends State<Signup> {
         ),
       ),
     );
-  }
-
-  void signupUser() {
-    String name = _nameController.text.trim();
-    String email = _emailController.text.trim();
-    String password = _passwordController.text.trim();
-
-    if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
-      
-      final userBox = Hive.box('user'); 
-      userBox.put('name', name);
-      userBox.put('email', email);
-      userBox.put('password', password);  
-
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Signup successful!".tr())),
-      );
-
-      
-      Navigator.pop(context); 
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please fill in all fields".tr())),
-      );
-    }
   }
 }
